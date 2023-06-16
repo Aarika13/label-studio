@@ -1,0 +1,17 @@
+<View>
+  <Image name="image" value="$image"/>
+  
+  <Labels name="label" toName="image">
+    <Label value="Invoice" background="green"/>
+    <Label value="B-Name" background="blue"/>
+    <Label value="S-Name" background="yellow"/>
+    <Label value="Amount" background="red"/>
+    <Label value="Tax_rate" background="orange"/>
+    <Label value="Tax_type" background="pink"/>
+    <Label value="description" background="violet"/>
+    <Label value="date" background="purple"/>
+  </Labels>
+  <Rectangle name="bbox" toName="image" strokeWidth="3"/>
+  <Polygon name="poly" toName="image" strokeWidth="3"/>
+  <TextArea name="transcription" toName="image" editable="true" perRegion="true" required="true" maxSubmissions="1" rows="5" placeholder="Recognized Text" displayMode="region-list"/>
+</View>
