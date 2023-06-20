@@ -1,35 +1,30 @@
-from flask import Flask, render_template, request, jsonify
-from PIL import Image
-import pytesseract
-import io
-import base64
-import json
+from PIL import Image, ImageDraw, ImageFont
+import os
+# Open the image
+image_path = r'/home/aarika/Desktop/New_OCR/data/upload/abc.jpg'  # Replace with your image path
+image = Image.open(image_path)
 
-app = Flask(__name__)
+# Create a drawing object
+draw = ImageDraw.Draw(image)
+# font_path = '/path/to/arial.ttf'  # Replace with the absolute path to your font file
+# font = ImageFont.truetype(font_path, 16)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# Define the label text and font
+label_text = 'Label'
+font = ImageFont.truetype('abc.jpg', 16)  # Replace with your desired font and size
 
-@app.route('/process_image', methods=['POST'])
-def process_image():
-    image_data = request.form['image']
-    image = Image.open(io.BytesIO(base64.b64decode(image_data)))
+# Define the label position (top-left coordinates)
+label_position = (10, 10)  # Adjust as per your preference
 
-    # Perform OCR using pytesseract
-    tesseract_output = pytesseract.image_to_data(image, output_type=pytesseract.Output.DICT)
+# Define the label color
+label_color = (255, 0, 0)  # Red color (RGB format)
 
-    # Process the tesseract output and create Label Studio compatible tasks
-    tasks = convert_to_ls(image, tesseract_output, per_level='block_num')
+# Add the label to the image
+draw.text(label_position, label_text, font=font, fill=label_color)
 
-    # Return the tasks as JSON response
-    return jsonify(tasks)
+# Save the image with the label
+image_with_label_path = 'image_with_label.jpg'  # Replace with the desired output path
+image.save(image_with_label_path)
 
-def convert_to_ls(image, tesseract_output, per_level='block_num'):
-    # Your conversion logic here
-    # Convert the OCR output to Label Studio compatible tasks
-    # ...
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
+# Display the image
+image.show()

@@ -1,2 +1,2 @@
-tesseract
-postgresql
+pytesseract
+postgresql==14.8
